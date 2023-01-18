@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EduHome.Business.Exceptions
 {
-    public sealed class NotFoundException : Exception
+    public sealed class UserCreateFailException : Exception
     {
-        public NotFoundException(string message):base(message) 
+        public UserCreateFailException(string message):base(message) 
         {
 
         }

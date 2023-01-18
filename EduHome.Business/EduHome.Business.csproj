@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EduHome.Core\EduHome.Core.csproj" />
     <ProjectReference Include="..\EduHome.DataAccess\EduHome.DataAccess.csproj" />
   </ItemGroup>
 

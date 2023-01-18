@@ -4,6 +4,7 @@ using EduHome.Business.Exceptions;
 using EduHome.Business.Services.Interfaces;
 using EduHome.Core.Contexts;
 using EduHome.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Xml.Linq;
@@ -32,7 +33,7 @@ namespace EduHome.Business.Services.Implementations
         public async Task<List<CourseDTO>> FindByConditionAsync(Expression<Func<Course, bool>> expression)
         {
             var courses = await _repository.FindByCondition(expression).ToListAsync();
-            if (courses is null) throw new NotFoundException(nameof(courses));
+            if (courses is null) throw new BadRequestException(nameof(courses));
             var courseDto = _mapper.Map<List<CourseDTO>>(courses);
             return courseDto;
         }
@@ -40,7 +41,7 @@ namespace EduHome.Business.Services.Implementations
         public async Task<CourseDTO> FindByIdAsync(int id)
         {
             var course = await _repository.FindByIdAsync(id);
-            if (course is null) throw new NotFoundException(nameof(course));
+            if (course is null) throw new BadRequestException(nameof(course));
             var courseDto = _mapper.Map<CourseDTO>(course);
             return courseDto;
         }
@@ -56,10 +57,10 @@ namespace EduHome.Business.Services.Implementations
         {
             if (id != courseUpdate.Id)
             {
-                throw new BadRequestException("Enter valid id");
+                throw new NotFoundException("Enter valid id");
             }
             var BaseCourse =  _repository.FindByCondition(n => n.Id != 0 ? n.Id==id : true);
-            if (BaseCourse is null) throw new NotFoundException("Not Found");
+            if (BaseCourse is null) throw new BadRequestException("Not Found");
             var newUpdatedCourse=_mapper.Map<Course>(courseUpdate);
             _repository.Update(newUpdatedCourse);
             await _repository.SaveAsync();
@@ -68,7 +69,7 @@ namespace EduHome.Business.Services.Implementations
         public async Task Delete(int id)
         {
             var BaseCourse = await _repository.FindByIdAsync(id);
-            if (BaseCourse is null) throw new NotFoundException("Not Found");
+            if (BaseCourse is null) throw new BadRequestException("Not Found");
             _repository.Delete(BaseCourse);
            await _repository.SaveAsync();
         }

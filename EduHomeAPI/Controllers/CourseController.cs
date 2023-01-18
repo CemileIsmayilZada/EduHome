@@ -2,6 +2,7 @@
 using EduHome.Business.Exceptions;
 using EduHome.Business.Services.Interfaces;
 using EduHome.Core.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -10,6 +11,7 @@ namespace EduHomeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class CourseController : ControllerBase
     {
         public readonly ICourseService _courseService;
@@ -46,7 +48,7 @@ namespace EduHomeAPI.Controllers
                 var courseDto = await _courseService.FindByIdAsync(id);
                 return Ok(courseDto);
             }
-            catch (NotFoundException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -73,7 +75,7 @@ namespace EduHomeAPI.Controllers
                 var courseDto = await _courseService.FindByConditionAsync(n => n.Name != null ? n.Name.Contains(name) : true);
                 return Ok(courseDto);
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError); ;
             }
@@ -106,11 +108,11 @@ namespace EduHomeAPI.Controllers
                await _courseService.UpdateAsync(id, courseUpdate);
                 return NoContent();
 
-            }catch(BadRequestException ex)
+            }catch(NotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch(NotFoundException ex)
+            catch(BadRequestException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -129,7 +131,7 @@ namespace EduHomeAPI.Controllers
                await _courseService.Delete(id);
                 return Ok("Deleted");
             }
-            catch (NotFoundException ex)
+            catch (BadRequestException ex)
             {
                 return BadRequest(ex.Message);
             }

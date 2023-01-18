@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9BDD1FA9-141
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E34B3F0A-7DFE-4C89-87C7-DB92D7FDE3E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduHome.DataAccess", "EduHome.DataAccess\EduHome.DataAccess.csproj", "{1DA8EBA3-C6B7-41FE-A993-8264B9B611D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduHome.DataAccess", "EduHome.DataAccess\EduHome.DataAccess.csproj", "{1DA8EBA3-C6B7-41FE-A993-8264B9B611D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
