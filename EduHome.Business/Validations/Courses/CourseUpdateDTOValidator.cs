@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EduHome.Business.Validations.Courses
 {
-    public class CourseUpdateDTOValidator:AbstractValidator<CourseUpdateDTO>
+    public class CourseUpdateDTOValidator : AbstractValidator<CourseUpdateDTO>
     {
         public CourseUpdateDTOValidator()
         {
@@ -25,8 +25,7 @@ namespace EduHome.Business.Validations.Courses
                 .MaximumLength(150).WithMessage("Maximum length : 150");
             RuleFor(c => c.Description)
                 .MaximumLength(500).WithMessage("Maximum length : 500");
-            RuleFor(c => c.Image)
-                .MaximumLength(500).WithMessage("Maximum length : 500");
+            
         }
     }
 }

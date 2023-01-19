@@ -14,8 +14,8 @@ namespace EduHome.Business.Mappers
         public CourseMapper()
         {
             CreateMap<Course, CourseDTO>().ReverseMap();
-            CreateMap<CoursePostDTO, Course>().ReverseMap();
-            CreateMap<CourseUpdateDTO, Course>().ReverseMap();
+            CreateMap<CoursePostDTO, Course>().ReverseMap().ForMember(m=> m.Image,opts=> opts.MapFrom(src=> src.Image));
+            CreateMap<CourseUpdateDTO, Course>().ReverseMap().ForMember(m => m.Image, opts => opts.MapFrom(src => src.Image));
 
         }
     }

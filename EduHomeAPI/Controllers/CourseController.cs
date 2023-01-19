@@ -11,7 +11,7 @@ namespace EduHomeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+
     public class CourseController : ControllerBase
     {
         public readonly ICourseService _courseService;
@@ -75,7 +75,7 @@ namespace EduHomeAPI.Controllers
                 var courseDto = await _courseService.FindByConditionAsync(n => n.Name != null ? n.Name.Contains(name) : true);
                 return Ok(courseDto);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError); ;
             }
@@ -84,13 +84,21 @@ namespace EduHomeAPI.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Post(CoursePostDTO coursePost)
+        public async Task<IActionResult> Post([FromForm] CoursePostDTO coursePost)
         {
             try
             {
                 await _courseService.CreateAsync(coursePost);
                 return Ok();
 
+            }
+            catch (IncorrectFileFormatException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (IncorrectFileSizeException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception)
             {
@@ -101,7 +109,7 @@ namespace EduHomeAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id,CourseUpdateDTO courseUpdate)
+        public async Task<IActionResult> Put(int id, [FromForm] CourseUpdateDTO courseUpdate)
         {
             try
             {
@@ -110,11 +118,12 @@ namespace EduHomeAPI.Controllers
 
             }catch(NotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
             catch(BadRequestException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
+                
             }
             catch (Exception )
             {
@@ -140,7 +149,7 @@ namespace EduHomeAPI.Controllers
                 return BadRequest(ex.Message);
             }
 
-            catch (Exception ex)
+            catch (Exception )
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError); ;
             }

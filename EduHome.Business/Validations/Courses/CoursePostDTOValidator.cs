@@ -19,7 +19,8 @@ namespace EduHome.Business.Validations.Courses
             RuleFor(c => c.Description)
                 .MaximumLength(500).WithMessage("Maximum length : 500");
             RuleFor(c => c.Image)
-                .MaximumLength(500).WithMessage("Maximum length : 500");
+                .NotEmpty()
+                .NotNull();
 
 
         }
