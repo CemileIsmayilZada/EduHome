@@ -5,6 +5,8 @@ using EduHome.Business.Services.Interfaces;
 using EduHome.Business.Utilities;
 using EduHome.Business.Utilities.Extensions;
 using EduHome.Core.Contexts;
+using EduHome.Core.Entities;
+using EduHome.DataAccess.Contexts;
 using EduHome.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -20,12 +22,14 @@ namespace EduHome.Business.Services.Implementations
         public readonly ICourseRepository _repository;
         public readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
+        
 
         public CourseService(ICourseRepository repository, IMapper mapper, IWebHostEnvironment env)
         {
             _repository = repository;
             _mapper = mapper;
             _env = env;
+           
         }
 
 
@@ -69,6 +73,8 @@ namespace EduHome.Business.Services.Implementations
                 filename = course.Image.CopyToAsync(_env.WebRootPath, "assets");
 
             }
+
+           if (!_repository.FindAll().Any(x => x.Id == course.CatagoryId)) throw new CatagoryIDException("There is no any suitable catagory for this id.");
             var newCourse = _mapper.Map<Course>(course);
             newCourse.Image = filename;
             await _repository.CreateAsync(newCourse);
@@ -100,8 +106,10 @@ namespace EduHome.Business.Services.Implementations
 
                 baseCourse.Image = filename;
             }
+            if (!_repository.FindAll().Any(x => x.Id == courseUpdate.CatagoryId)) throw new CatagoryIDException("There is no any suitable catagory for this id.");
             baseCourse.Name = courseUpdate.Name;
             baseCourse.Description = courseUpdate.Description;
+            baseCourse.CatagoryId=courseUpdate.CatagoryId;
 
             _repository.Update(baseCourse);
             await _repository.SaveAsync();

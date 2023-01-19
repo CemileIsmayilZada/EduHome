@@ -1,4 +1,5 @@
 ﻿using EduHome.Core.Contexts;
+using EduHome.Core.Entities;
 using EduHome.Core.Entities.Identity;
 using EduHome.DataAccess.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -23,5 +24,6 @@ namespace EduHome.DataAccess.Contexts
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Catagory> Catagories { get; set; } 
     }
 }

@@ -11,6 +11,7 @@ namespace EduHome.DataAccess.Configurations
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             builder.Property(x => x.Description).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Image).IsRequired();
+            builder.Property(x=>x.CatagoryId).IsRequired();
         }
     }
 }

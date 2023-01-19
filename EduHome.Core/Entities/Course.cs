@@ -1,4 +1,5 @@
-﻿using EduHome.Core.Interfaces;
+﻿using EduHome.Core.Entities;
+using EduHome.Core.Interfaces;
 
 namespace EduHome.Core.Contexts
 {
@@ -10,7 +11,10 @@ namespace EduHome.Core.Contexts
         public string? Image { get; set; }
 
         public bool? IsDeleted { get; set; }
-        
+
+        public int? CatagoryId { get; set; }
+        public Catagory? Catagory { get; set; }
+
 
     }
 }

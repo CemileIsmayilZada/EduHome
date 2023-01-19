@@ -13,6 +13,7 @@ namespace EduHome.Business.DTOs.CourseDTOs
         public string? Name { get; set; }
         public string? Description { get; set; }
         public IFormFile? Image { get; set; }
+        public int CatagoryId { get; set; }
 
         
     }

@@ -57,7 +57,7 @@ namespace EduHomeAPI.Controllers
                 return BadRequest(ex.Message);
             }
 
-            catch (Exception ex)
+            catch (Exception )
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError); ;
             }
@@ -97,6 +97,10 @@ namespace EduHomeAPI.Controllers
                 return BadRequest(ex.Message);
             }
             catch (IncorrectFileSizeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(CatagoryIDException ex)
             {
                 return BadRequest(ex.Message);
             }
